@@ -1,0 +1,46 @@
+
+plugins {
+    id 'java'
+    id 'application'
+	id 'com.github.johnrengelman.shadow' version '5.0.0'
+    id 'checkstyle'
+    id 'pl.allegro.tech.build.axion-release' version '1.10.1'
+
+}
+group 'com.github.minecraft-saar'
+description 'minecraft-nlg'
+
+scmVersion {
+    tag {
+        prefix = 'release-'
+    }
+}
+
+version = scmVersion.version
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {url 'http://www.ling.uni-potsdam.de/tcl/maven2/external'}
+    maven {url 'http://www.ling.uni-potsdam.de/tcl/maven2/releases'}
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: "com.github.coli-saar", name:"alto", version:"66dc3ff9"
+    compile 'info.picocli:picocli:3.9.3'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    compile 'org.eclipse.collections:eclipse-collections-api:9.2.0'
+    compile 'org.eclipse.collections:eclipse-collections:9.2.0'
+}
+
+checkstyle {
+	toolVersion "8.19"
+}
+
+description = 'minecraft-inlg2019-generation'
+
+mainClassName = 'de.saar.coli.minecraft.Main'

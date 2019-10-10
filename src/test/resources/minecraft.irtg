@@ -1,0 +1,74 @@
+interpretation string: de.up.ling.irtg.algebra.StringAlgebra
+interpretation ref: de.up.ling.irtg.algebra.SetAlgebra
+interpretation sem: de.up.ling.irtg.algebra.SubsetAlgebra
+
+// a referent is always the location the current subtree refers to
+// Terminalsymbole dürfen nur in einer einzigen Regel auftreten
+
+S! -> s(RefLoc)
+  [string] *("put the block", ?1)
+  [ref] ?1
+  [sem] ?1 
+
+RefBlock -> blockloc(RefLoc)
+  [string] *("the block", ?1)
+  [ref] ?1
+  [sem] ?1
+
+// RefLoc - refers to a position which may or may not contain a block
+
+RefLoc -> top(RefBlock)
+  [string] *("on top of", ?1)
+  [ref] project_1(intersect_2(top-of,?1))
+  [sem] ?1
+  
+RefLoc -> below(RefBlock)
+  [string] *("below of", ?1)
+  [ref] project_2(intersect_1(top-of,?1))
+  [sem] ?1
+  
+RefLoc -> left(RefBlock)
+  [string] *("to the left of", ?1)
+  [ref] project_1(intersect_2(left-of,?1))
+  [sem] ?1
+  
+RefLoc -> right(RefBlock)
+  [string] *("to the right of", ?1)
+  [ref] project_2(intersect_1(left-of,?1))
+  [sem] ?1
+  
+RefLoc -> front(RefBlock)
+  [string] *("infront of", ?1)
+  [ref] project_1(intersect_2(in-front-of,?1))
+  [sem] ?1
+  
+RefLoc -> behind(RefBlock)
+  [string] *("behind of", ?1)
+  [ref] project_2(intersect_1(in-front-of,?1))
+  [sem] ?1
+  
+
+RefBlock -> uniqblockdesc(AdjBlock)
+ [string] *("the", ?1)
+ [ref] project_2(intersect_1(at, size_1(?1)))
+ [sem] ?1
+
+AdjBlock -> orangeblock
+  [string] "orange block"
+  [ref] orange
+  [sem] EMPTYSET
+  
+AdjBlock -> yellowblock
+  [string] "yellow block"
+  [ref] yellow
+  [sem] EMPTYSET
+
+AdjBlock -> blueblock
+  [string] "blue block"
+  [ref] blue
+  [sem] EMPTYSET
+
+AdjBlock -> prevblock
+  [string] "previous block"
+  [ref] it
+  [sem] EMPTYSET
